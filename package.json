@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.11.3",
+    "firebase": "^10.7.1",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
