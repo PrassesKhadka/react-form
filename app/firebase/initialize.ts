@@ -21,7 +21,8 @@ export const authInit = getAuth(app);
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);
+
 // export collection names
-export const collectionStudents = "Students";
-export const collectionCourses = "Courses";
-export const collectionProfessors = "Professors";
+export const collectionStudents = "students";
+export const collectionCourses = "courses";
+export const collectionProfessors = "professors";

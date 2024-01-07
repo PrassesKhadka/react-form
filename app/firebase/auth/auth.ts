@@ -25,7 +25,7 @@ export function logoutUser() {
   signOut(authInit)
     .then((userCredential) => {
       // Signed out
-      console.log("User signed out !!!");
+      console.log("User signed out !!!", userCredential);
     })
     .catch((error) => {
       const errorCode = error.code;
