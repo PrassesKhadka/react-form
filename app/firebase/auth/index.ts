@@ -1,9 +1,9 @@
 import { loginUser, logoutUser, registerUser } from "./auth";
-import { authObserver } from "./authObserver";
+import { useAuthObserver } from "./useAuthObserver";
 
 export const auth = {
   registerUser,
   loginUser,
   logoutUser,
-  authObserver,
+  useAuthObserver,
 };

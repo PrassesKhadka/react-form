@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { User, onAuthStateChanged } from "firebase/auth";
 import { authInit } from "../initialize";
 import { Tuser, TloginStatus } from "@/app/interfaces";
 
-export function authObserver() {
+interface IreturnAuthObserver {
+  currentUser: Tuser;
+  loginStatus: TloginStatus;
+}
+
+// Creating a custom react hook:
+export function useAuthObserver(): IreturnAuthObserver {
   const [currentUser, setCurrentUser] = useState<Tuser>(null);
   const [loginStatus, setLoginStatus] = useState<TloginStatus>("checking");
 

@@ -1,5 +1,13 @@
 "use client";
+import React from "react";
+import FormComponent from "./forms";
 
-export default function Home() {
-  return <div>This is a Home page</div>;
-}
+const Home = () => {
+  return (
+    <>
+      <FormComponent />
+    </>
+  );
+};
+
+export default Home;

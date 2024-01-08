@@ -9,3 +9,18 @@ export interface IuserEmailAndPassword {
 export type Tuser = User | null;
 
 export type TloginStatus = "checking" | true | false;
+
+export type Tgender = "male" | "female" | "others";
+export type Tlevel = "bachelors" | "masters";
+export type Tfaculty = "science";
+export type Tcourses = "csit" | "environmentSci" | "engineering";
+
+export interface Istudent {
+  fullname: string;
+  dateOfBirth: string;
+  gender: Tgender;
+  profilePicture: FileList | "";
+  level: Tlevel;
+  faculty: Tfaculty;
+  courses: Tcourses;
+}
