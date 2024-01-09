@@ -8,10 +8,14 @@ type FormWrapperProps = {
 
 const FormWrapper: React.FC<FormWrapperProps> = ({ title, children }) => {
   return (
-    <>
-      <h2>{title}</h2>
-      <div>{children}</div>
-    </>
+    <div>
+      <h2 className="flex justify-center items-center mb-4 text-2xl font-bold">
+        {title}
+      </h2>
+      <div className="border-red-500 border-1 flex flex-col gap-2">
+        {children}
+      </div>
+    </div>
   );
 };
 

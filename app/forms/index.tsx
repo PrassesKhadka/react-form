@@ -2,12 +2,23 @@
 
 import React from "react";
 import { useMultistepForm } from "./useMultistepForm";
-import StudentAcademicForm from "./studentAcademicForm";
-import StudentDetailsForm from "./studentDetailsForm";
-import { useForm, SubmitHandler } from "react-hook-form";
+import StudentAcademicForm from "./formComponents.tsx/studentAcademicForm";
+import StudentDetailsForm from "./formComponents.tsx/studentDetailsForm";
+import { useForm, SubmitHandler, Control, FieldErrors } from "react-hook-form";
 import { Istudent } from "../interfaces";
 
+export interface IuseMultistepFormProps {
+  control: Control<Istudent>;
+  errors: FieldErrors<Istudent>;
+}
+
 const FormComponent: React.FC = () => {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<Istudent>({});
+
   const {
     currentStep,
     next,
@@ -16,46 +27,46 @@ const FormComponent: React.FC = () => {
     isFirstStep,
     isLastStep,
     totalStep,
-  } = useMultistepForm([<StudentDetailsForm />, <StudentAcademicForm />]);
+  } = useMultistepForm([
+    <StudentDetailsForm control={control} errors={errors} />,
+    <StudentAcademicForm control={control} errors={errors} />,
+  ]);
 
-  const { handleSubmit } = useForm<Istudent>({
-    defaultValues: {
-      fullname: "",
-      dateOfBirth: "",
-      gender: "male",
-      profilePicture: "",
-      level: "bachelors",
-      faculty: "science",
-      courses: "csit",
-    },
-  });
-
-  const handleOnNext: SubmitHandler<Istudent> = (data: Istudent) => {
-    next();
+  const handleOnNextClick: SubmitHandler<Istudent> = (data: Istudent) => {
+    console.log(errors);
     console.log(data);
+    next();
   };
 
   return (
-    <form onSubmit={handleSubmit(handleOnNext)}>
-      {/* Index number */}
-      <span>
-        {currentStep + 1}/{totalStep}
+    <form
+      onSubmit={handleSubmit(handleOnNextClick)}
+      className="flex flex-col p-4 justify-around items-around border-blue-700 border-4 h-[75%] sm:w-[100%] md:w-[350px]"
+    >
+      <span className="flex justify-end w-[100%]">
+        {currentStep + 1} / {totalStep}
       </span>
 
       {/* Form rendered according to step  */}
       {StepRender}
 
       {/* For Buttons */}
-      <div>
+      <div className="border-red-500 b-1 flex justify-end items-center">
         {!isFirstStep() && (
-          <button type="button" onClick={prev}>
+          <button
+            type="button"
+            onClick={prev}
+            className="btn btn-active btn-neutral mr-2"
+          >
             Back
           </button>
         )}
         {!isLastStep() ? (
-          <button type="submit">Next</button>
+          <button className="btn btn-active btn-neutral">Next</button>
         ) : (
-          <button type="submit">Finish</button>
+          <button type="submit" className="btn btn-success">
+            Finish
+          </button>
         )}
       </div>
     </form>

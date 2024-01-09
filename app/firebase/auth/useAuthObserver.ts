@@ -25,7 +25,10 @@ export function useAuthObserver(): IreturnAuthObserver {
       }
     });
 
-    // Cleanup this using return but why???? Let's see
+    // clean up
+    return () => {
+      onAuthStateChanged;
+    };
   }, []);
 
   return { currentUser, loginStatus };

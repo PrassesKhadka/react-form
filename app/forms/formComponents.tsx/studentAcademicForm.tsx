@@ -1,73 +1,71 @@
 // Student Academic Information Form
 "use client";
 
-import { useForm, SubmitHandler, Controller, Form } from "react-hook-form";
-import { Istudent } from "../interfaces";
-import FormWrapper from "./formWrapper";
+import {
+  useForm,
+  SubmitHandler,
+  Controller,
+  Form,
+  Control,
+  FieldError,
+} from "react-hook-form";
+import { Istudent } from "../../interfaces";
+import FormWrapper from "../formWrapper";
+import { IuseMultistepFormProps } from "..";
 
-const StudentAcademicForm = () => {
-  const {
-    control,
-    formState: { errors },
-  } = useForm<Istudent>();
-
+const StudentAcademicForm = ({ control, errors }: IuseMultistepFormProps) => {
   return (
     <FormWrapper title="Academic Information">
       {/* For Level input */}
       <label>
-        Level:
         <Controller
           control={control}
           name="level"
           rules={{ required: "This field is required" }}
           render={({ field }) => (
-            <select className="select select-bordered w-full max-w-xs">
+            <select
+              {...field}
+              className="select select-bordered w-full max-w-xs"
+            >
               <option disabled selected>
                 Level
               </option>
-              <option>Bachelor</option>
-              <option>Master</option>
+              <option value="bachelor">Bachelor</option>
+              <option value="master">Master</option>
             </select>
           )}
         />
+        <div className="label">
+          <span className="label-text-alt text-red-700">
+            {errors.level && errors.level?.message}
+          </span>
+        </div>
       </label>
 
       {/* Faculty Input */}
       <label>
-        Faculty:
         <Controller
           control={control}
           name="faculty"
           rules={{ required: "This field is required" }}
           render={({ field }) => (
-            <select className="select select-bordered w-full max-w-xs">
+            <select
+              {...field}
+              className="select select-bordered w-full max-w-xs"
+            >
               <option disabled selected>
                 Faculty
               </option>
-              <option>Management</option>
-              <option>Science</option>
+              <option value="management">Management</option>
+              <option value="science">Science</option>
             </select>
           )}
         />
-        {errors.faculty && <span>{errors.faculty.message}</span>}
-      </label>
-
-      {/* Select Input
-      <label>
-        Select Input:
-        <Controller
-          control={control}
-          name="selectInput"
-          rules={{ required: "This field is required" }}
-          render={({ field }) => (
-            <select {...field}>
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </select>
-          )}
-        />
-        {errors.selectInput && <span>{errors.selectInput.message}</span>}
+        <div className="label">
+          <span className="label-text-alt text-red-700">
+            {errors.faculty && <span>{errors.faculty.message}</span>}
+          </span>
+        </div>
       </label>
 
       {/* Checkbox Input */}
