@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage, ref } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -26,3 +27,6 @@ export const db = getFirestore(app);
 export const collectionStudents = "students";
 export const collectionCourses = "courses";
 export const collectionProfessors = "professors";
+
+// Get a non-default Storage bucket
+export const storage = getStorage(app);

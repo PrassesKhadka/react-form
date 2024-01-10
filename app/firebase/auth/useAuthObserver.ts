@@ -14,7 +14,9 @@ export function useAuthObserver(): IreturnAuthObserver {
   const [loginStatus, setLoginStatus] = useState<TloginStatus>("checking");
 
   useEffect(() => {
-    // This observer gets called whenever the user's sign-in state changes.
+    // This observer gets called whenever the user's sign-in,
+    // thus once user logsin,out state changes and rerendering happens and
+    // the user name and all will be reflected.
     onAuthStateChanged(authInit, (user: Tuser) => {
       if (user) {
         setCurrentUser(user);
@@ -26,9 +28,9 @@ export function useAuthObserver(): IreturnAuthObserver {
     });
 
     // clean up
-    return () => {
-      onAuthStateChanged;
-    };
+    // return () => {
+    //   onAuthStateChanged;
+    // };
   }, []);
 
   return { currentUser, loginStatus };

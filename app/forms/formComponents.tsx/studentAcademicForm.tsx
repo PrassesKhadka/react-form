@@ -68,27 +68,70 @@ const StudentAcademicForm = ({ control, errors }: IuseMultistepFormProps) => {
         </div>
       </label>
 
-      {/* Checkbox Input */}
-      {/* <label>
-        Checkbox Input:
+      {/* Courses */}
+      <label>
         <Controller
           control={control}
-          name="checkboxInput"
-          render={({ field }) => <input type="checkbox" {...field} />}
+          name="courses"
+          rules={{ required: "This field is required" }}
+          render={({ field }) => (
+            <select
+              {...field}
+              className="select select-bordered w-full max-w-xs"
+            >
+              <option disabled selected>
+                Course
+              </option>
+              <option value="csit">BSc.CSIT</option>
+              <option value="computer engineering">BE.Computer</option>
+            </select>
+          )}
         />
+        <div className="label">
+          <span className="label-text-alt text-red-700">
+            {errors.courses && <span>{errors.courses.message}</span>}
+          </span>
+        </div>
       </label>
 
-      {/* Date of Birth Input */}
-      {/* <label>
-        Date of Birth:
+      {/* Checkbox Input */}
+      <label>
+        Choose your electives
         <Controller
           control={control}
-          name="dobInput"
-          rules={{ required: "This field is required" }}
-          render={({ field }) => <input type="date" {...field} />}
+          name="electives"
+          render={({ field }) => (
+            <div className="form-control">
+              <label className="label cursor-pointer">
+                <span className="label-text">Image Processing</span>
+                <input
+                  {...field}
+                  name="checkbox-1"
+                  value="image processing"
+                  type="checkbox"
+                  className="checkbox"
+                />
+                <span className="label-text">Multimedia</span>
+                <input
+                  {...field}
+                  name="checkbox-2"
+                  value="multimedia"
+                  type="checkbox"
+                  className="checkbox"
+                />
+                <span className="label-text">Society and Ethics in IT</span>
+                <input
+                  {...field}
+                  name="checkbox-3"
+                  value="society and ethics in it"
+                  type="checkbox"
+                  className="checkbox"
+                />
+              </label>
+            </div>
+          )}
         />
-        {errors.dobInput && <span>{errors.dobInput.message}</span>}
-      </label> */}
+      </label>
     </FormWrapper>
   );
 };

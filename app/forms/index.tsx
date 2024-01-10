@@ -41,7 +41,7 @@ const FormComponent: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit(handleOnNextClick)}
-      className="flex flex-col p-4 justify-around items-around border-blue-700 border-4 h-[75%] sm:w-[100%] md:w-[350px]"
+      className="flex flex-col p-4 justify-around items-around border-blue-700 border-4  min-h-[80%] w-[25%]"
     >
       <span className="flex justify-end w-[100%]">
         {currentStep + 1} / {totalStep}
@@ -64,7 +64,7 @@ const FormComponent: React.FC = () => {
         {!isLastStep() ? (
           <button className="btn btn-active btn-neutral">Next</button>
         ) : (
-          <button type="submit" className="btn btn-success">
+          <button type="submit" className="btn btn-success text-white">
             Finish
           </button>
         )}

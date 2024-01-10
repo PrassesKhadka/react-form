@@ -12,7 +12,11 @@
 
 # Lessons Learnt:
 
+Firebase-> storage ,authentication ,cloud firestore,security rules,emulator suite
+
 # References:
+
+- [Creating React custom hooks]("https://react.dev/learn/reusing-logic-with-custom-hooks")
 
 ## Firebase
 
@@ -34,3 +38,13 @@
   - [2-Setting up emulator for testing security rules]("https://firebase.google.com/docs/rules/emulator-suite")
   - [3-Writing unit tests]("https://firebase.google.com/docs/rules/unit-tests")
   - [4-Deprecated but tests structure reference]("https://github.com/akauppi/firebase-jest-testing/blob/master/package/Writing%20tests.md#testing-security-rules")
+
+## RTK and RTK query
+
+### Integrating Firebase and RTK query
+
+- [1. Stack overflow]("https://stackoverflow.com/questions/71587312/is-it-possible-to-use-firebase-query-with-redux-toolkit-or-rtk-query-in-react") -[2. RTK docs]("https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#implementing-a-queryfn")
+
+## Github Reference
+
+-[1.]("https://github.com/NaveenDanj/pico")

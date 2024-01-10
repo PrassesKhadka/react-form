@@ -23,7 +23,7 @@ const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
           render={({ field }) => (
             <label className="form-control w-full max-w-xs">
               <div className="label">
-                <span className="label-text">What is your name?</span>
+                <span className="label-text">What is your full name?</span>
               </div>
               <input
                 {...field}
@@ -42,6 +42,22 @@ const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
       </label>
 
       {/* For Date of Birth */}
+      <label>
+        <div className="label">
+          <span className="label-text">what is your date of birth?</span>
+        </div>
+        <Controller
+          name="dateOfBirth"
+          control={control}
+          rules={{ required: "This field is required" }}
+          render={({ field }) => <input {...field} type="date" />}
+        ></Controller>
+        <div className="label">
+          <span className="label-text-alt text-red-700">
+            {errors.dateOfBirth && errors.dateOfBirth?.message}
+          </span>
+        </div>
+      </label>
 
       {/* For gender */}
       <label>
@@ -95,8 +111,9 @@ const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
       <label>
         <Controller
           control={control}
+          rules={{ required: "Please select an image" }}
           name="profilePicture"
-          rules={{ required: "This field is required" }}
+          // rules={{ required: "This field is required" }}
           render={({ field: { value, onChange, ...field } }) => (
             <label className="form-control w-full max-w-xs">
               <div className="label">
@@ -105,6 +122,9 @@ const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
               <input
                 {...field}
                 type="file"
+                onChange={onChange}
+                accept="image/*"
+                defaultValue={undefined}
                 className="file-input file-input-bordered w-full max-w-xs"
               />
               <div className="label">
