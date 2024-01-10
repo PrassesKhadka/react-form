@@ -38,10 +38,10 @@ export function studentOperations(): IreturnStudentOperations {
         fullname: "",
         dateOfBirth: "",
         gender: "male",
-        profilePicture: ["public/assets/images/avatar.png"],
+        profilePicture: "../../../public/assets/images/avatar.png",
         level: "bachelor",
-        faculty: "csit",
-        courses: "",
+        faculty: "science",
+        courses: "csit",
       },
     };
   }

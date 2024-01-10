@@ -1,10 +1,27 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import FormWrapper from "../formWrapper";
 import { IuseMultistepFormProps } from "..";
+import { useAccessStorage } from "@/app/firebase/storage/useAccessStorage";
 
 const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
+  const [profilePicture, setProfilePicture] = useState<File>(
+    new File([], "public/assets/images/avatar.png")
+  );
+  const { getName, uploadFile, getData } = useAccessStorage(profilePicture);
+  console.log(profilePicture);
+  useEffect(() => {
+    uploadFile();
+    if (profilePicture) {
+      console.log("hi");
+      const { progressMessage, errorMessage, downloadUrl } = getData;
+      console.log(progressMessage);
+      console.log(errorMessage);
+      console.log(downloadUrl);
+    }
+  }, [profilePicture]);
+
   return (
     <FormWrapper title="Details Form">
       {/* For full name */}
@@ -111,7 +128,6 @@ const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
       <label>
         <Controller
           control={control}
-          rules={{ required: "Please select an image" }}
           name="profilePicture"
           // rules={{ required: "This field is required" }}
           render={({ field: { value, onChange, ...field } }) => (
@@ -122,9 +138,13 @@ const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
               <input
                 {...field}
                 type="file"
-                onChange={onChange}
+                onChange={(e) => {
+                  setProfilePicture((prev) =>
+                    // was showing error so given condition for what should happen when null state occur
+                    e.target.files ? (prev = e.target.files[0]) : (prev = prev)
+                  );
+                }}
                 accept="image/*"
-                defaultValue={undefined}
                 className="file-input file-input-bordered w-full max-w-xs"
               />
               <div className="label">

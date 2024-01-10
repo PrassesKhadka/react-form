@@ -8,7 +8,6 @@ export interface IuserEmailAndPassword {
 }
 
 export type Tuser = User | null;
-
 export type TloginStatus = "checking" | true | false;
 
 export type Tgender = "male" | "female" | "others";
@@ -20,11 +19,12 @@ export interface Istudent {
   fullname: string;
   dateOfBirth: string;
   gender: Tgender;
-  profilePicture: FileList;
+  // image's link to the firebase storage
+  profilePicture: string;
   level: Tlevel;
   faculty: Tfaculty;
   courses: Tcourses;
-  electives: string[];
+  electives?: string[];
 }
 
 // document created at firestore
