@@ -6,6 +6,8 @@ import StudentAcademicForm from "./formComponents.tsx/studentAcademicForm";
 import StudentDetailsForm from "./formComponents.tsx/studentDetailsForm";
 import { useForm, SubmitHandler, Control, FieldErrors } from "react-hook-form";
 import { Istudent } from "../interfaces";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { setStudentData } from "../redux/Slices/studentSlice";
 
 export interface IuseMultistepFormProps {
   control: Control<Istudent>;
@@ -32,9 +34,14 @@ const FormComponent: React.FC = () => {
     <StudentAcademicForm control={control} errors={errors} />,
   ]);
 
+  // get the student data at this instance from redux store
+  const studentData = useAppSelector((state) => state.student);
+  const dispatch = useAppDispatch();
+
   const handleOnNextClick: SubmitHandler<Istudent> = (data: Istudent) => {
     console.log(errors);
     console.log(data);
+    dispatch(setStudentData(data));
     next();
   };
 

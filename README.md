@@ -41,10 +41,18 @@ Firebase-> storage ,authentication ,cloud firestore,security rules,emulator suit
 
 ## RTK and RTK query
 
+### RTK
+
+- [1. Setting up RTK]("https://redux-toolkit.js.org/usage/nextjs")
+
 ### Integrating Firebase and RTK query
 
-- [1. Stack overflow]("https://stackoverflow.com/questions/71587312/is-it-possible-to-use-firebase-query-with-redux-toolkit-or-rtk-query-in-react") -[2. RTK docs]("https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#implementing-a-queryfn")
+- [1. Stack overflow]("https://stackoverflow.com/questions/71587312/is-it-possible-to-use-firebase-query-with-redux-toolkit-or-rtk-query-in-react")
+
+- [2. RTK docs]("https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#implementing-a-queryfn")
 
 ## Github Reference
 
--[1.]("https://github.com/NaveenDanj/pico")
+- [1.]("https://github.com/umeshmk/rp-react-firebase-crud/tree/main")
+
+- [2.]("https://github.com/NaveenDanj/pico")
