@@ -5,7 +5,6 @@ import {
   DocumentData,
   DocumentReference,
   serverTimestamp,
-  setDoc,
 } from "firebase/firestore";
 import { IuserDocument } from "@/app/interfaces";
 

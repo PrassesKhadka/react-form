@@ -34,14 +34,8 @@ const FormComponent: React.FC = () => {
     <StudentAcademicForm control={control} errors={errors} />,
   ]);
 
-  // get the student data at this instance from redux store
-  const studentData = useAppSelector((state) => state.student);
-  const dispatch = useAppDispatch();
-
   const handleOnNextClick: SubmitHandler<Istudent> = (data: Istudent) => {
-    console.log(errors);
     console.log(data);
-    dispatch(setStudentData(data));
     next();
   };
 

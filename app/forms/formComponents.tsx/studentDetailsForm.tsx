@@ -4,21 +4,25 @@ import { Controller } from "react-hook-form";
 import FormWrapper from "../formWrapper";
 import { IuseMultistepFormProps } from "..";
 import { useAccessStorage } from "@/app/firebase/storage/useAccessStorage";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
+import { setStudentData } from "@/app/redux/Slices/studentSlice";
 
 const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
   const [profilePicture, setProfilePicture] = useState<File>(
     new File([], "public/assets/images/avatar.png")
   );
   const { getName, uploadFile, getData } = useAccessStorage(profilePicture);
-  console.log(profilePicture);
+  // get redux
+  const currentState = useAppSelector((prev) => prev);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     uploadFile();
     if (profilePicture) {
-      console.log("hi");
       const { progressMessage, errorMessage, downloadUrl } = getData;
-      console.log(progressMessage);
-      console.log(errorMessage);
-      console.log(downloadUrl);
+      dispatch(
+        setStudentData({ ...currentState, profilePicture: downloadUrl })
+      );
     }
   }, [profilePicture]);
 
@@ -136,7 +140,6 @@ const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
                 <span className="label-text">Choose a photo</span>
               </div>
               <input
-                {...field}
                 type="file"
                 onChange={(e) => {
                   setProfilePicture((prev) =>
