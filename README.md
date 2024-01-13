@@ -132,14 +132,18 @@ reducers:{
 
 ## Github Reference
 
-- [1.](https://github.com/umeshmk/rp-react-firebase-crud/tree/main)
+- [Firebase CRUD Example template](https://github.com/umeshmk/rp-react-firebase-crud/tree/main)
 
-- [2.](https://github.com/NaveenDanj/pico)
+- [Firebase chat app example](https://github.com/NaveenDanj/pico)
 
-```
+## Next.js
 
-```
-
-```
-
-```
+- [useRouter](https://nextjs.org/docs/pages/api-reference/functions/ use-router)
+  useRouter from next/navigation used outside page directory and form next/router used inside pages directory
+- [pages and layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts)
+  layout.tsx -> preserves the layout of that route -> static example header and footer
+  page.tsx -> the content on that route
+  Example if admin->page.tsx,layout.tsx and dashboard(another route inside admin)->page.tsx. Here layout .tsx will be shared between dashboard and page.tsx
+- To Fetch user data server-side to eliminate a flash of unauthenticated content.
+  - [Next.js Authentication pattern docs](https://nextjs.org/docs/pages/building-your-application/routing/authenticating)
+  - [Authentication pattern template example with Firebase](https://github.com/vercel/next.js/tree/canary/examples/with-firebase)

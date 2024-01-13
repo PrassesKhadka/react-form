@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { ReactNode } from "react";
 import { useMultistepForm } from "./useMultistepForm";
 import StudentAcademicForm from "./formComponents.tsx/studentAcademicForm";
 import StudentDetailsForm from "./formComponents.tsx/studentDetailsForm";
@@ -14,7 +14,7 @@ export interface IuseMultistepFormProps {
   errors: FieldErrors<Istudent>;
 }
 
-const FormComponent: React.FC = () => {
+const FormComponent: React.FC<ReactNode[]> = () => {
   const {
     handleSubmit,
     control,

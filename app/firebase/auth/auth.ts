@@ -11,13 +11,11 @@ export function loginUser({ email, password }: IuserEmailAndPassword) {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log(user);
-      // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.error(errorMessage);
+      console.log(errorMessage);
     });
 }
 
@@ -25,12 +23,12 @@ export function logoutUser() {
   signOut(authInit)
     .then((userCredential) => {
       // Signed out
-      console.log("User signed out !!!", userCredential);
+      // console.log("User signed out !!!", userCredential);
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.error(errorMessage);
+      console.error(errorCode + " " + errorMessage);
     });
 }
 
@@ -39,11 +37,10 @@ export function registerUser({ email, password }: IuserEmailAndPassword) {
     .then((userCredential) => {
       // New user registered
       const user = userCredential.user;
-      console.log(user);
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.error(errorMessage);
+      console.error(errorCode + " " + errorMessage);
     });
 }
