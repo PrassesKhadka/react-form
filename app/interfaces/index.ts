@@ -15,6 +15,7 @@ export type Tlevel = "bachelor" | "master";
 export type Tfaculty = "science" | "management";
 export type Tcourses = "csit" | "computer engineering";
 
+// This is the data retrieved from the form
 export interface Istudent {
   fullname: string;
   dateOfBirth: string;
@@ -27,7 +28,7 @@ export interface Istudent {
   electives?: string[];
 }
 
-// document created at firestore
+// student document created at firestore
 export interface IuserDocument {
   id: string; // uid
   email: string; // emailid

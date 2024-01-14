@@ -14,7 +14,7 @@ export interface IuseMultistepFormProps {
   errors: FieldErrors<Istudent>;
 }
 
-const FormComponent: React.FC<ReactNode[]> = () => {
+const FormComponent = () => {
   const {
     handleSubmit,
     control,

@@ -7,6 +7,7 @@ import { IuserEmailAndPassword } from "@/app/interfaces";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { redirect } from "next/navigation";
 
 export default function Login() {
   // Log in message
@@ -18,20 +19,23 @@ export default function Login() {
   const { currentUser, loginStatus } = useAuthObserver();
   const router = useRouter();
 
-  useEffect(() => {
-    // Prefetch the dashboard page
-    router.prefetch("/pages/dashboard");
-  }, [router]);
+  // useEffect(() => {
+  //   // Prefetch the dashboard page
+  //   router.prefetch("/dashboard");
+  //   router.replace("/dashboard");
+  // }, [router]);
+
+  // if (currentUser) {
+  //   redirect("/dashboard");
+  // }
 
   const onSubmit: SubmitHandler<IuserEmailAndPassword> = async (data, e) => {
     e?.preventDefault();
     loginUser(data);
-    console.log(currentUser);
-    if (currentUser) {
-      router.replace("/dashboard");
-    } else {
-      router.push("/login");
-    }
+
+    // if (currentUser) {
+    //   router.replace("/dashboard");
+    // }
   };
 
   return (
