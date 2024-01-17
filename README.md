@@ -39,6 +39,8 @@ Firebase-> storage ,authentication ,cloud firestore,security rules,emulator suit
   - [3-Writing unit tests](https://firebase.google.com/docs/rules/unit-tests)
   - [4-Deprecated but tests structure reference](https://github.com/akauppi/firebase-jest-testing/blob/master/package/Writing%20tests.md#testing-security-rules)
 
+  - [Pagination](https://www.youtube.com/watch?v=Lz8MJ9VzXZ8)
+
 ## RTK and RTK query
 
 ### RTK
