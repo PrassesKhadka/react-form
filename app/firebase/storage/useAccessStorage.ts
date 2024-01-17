@@ -4,24 +4,29 @@ import { storage } from "../initialize";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 interface IreturnUseAccessStorage {
-  uploadFile: () => void;
+  uploadFile?: () => void;
   getName: () => string;
-  getData: IgetData;
-}
-
-interface IgetData {
   progressMessage: string;
   errorMessage: string;
   downloadUrl: string;
+  stateMessage: string;
 }
 
 // React custom hook -> you can include useState and useEffect inside it unlike factory functions where you cannot
 export function useAccessStorage(file: File): IreturnUseAccessStorage {
-  const [state, setState] = useState<IgetData>({
-    progressMessage: "",
-    errorMessage: "",
-    downloadUrl: "",
-  });
+  const [progressMessage, setProgressMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [downloadUrl, setDownloadUrl] = useState<string>("");
+  const [stateMessage, setStateMessage] = useState<string>("");
+
+  if (!file)
+    return {
+      progressMessage,
+      errorMessage,
+      downloadUrl,
+      stateMessage,
+      getName,
+    };
 
   // if you refer to multiple files with the same name, it will overwrite so to prevent this,we have used date to create a unique file name
   const fileUniqueName = new Date().getTime() + file.name;
@@ -46,59 +51,36 @@ export function useAccessStorage(file: File): IreturnUseAccessStorage {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-        setState(
-          (prev) =>
-            prev && {
-              ...prev,
-              progressMessage: "Upload is " + progress + "% done",
-            }
-        );
+        setProgressMessage("Upload is " + progress + "% done");
 
         switch (snapshot.state) {
           case "paused":
-            setState(
-              (prev) =>
-                prev && {
-                  ...prev,
-                  progressMessage: "Upload is paused",
-                }
-            );
+            setStateMessage("Upload is paused");
             break;
           case "running":
-            setState(
-              (prev) =>
-                prev && {
-                  ...prev,
-                  progressMessage: "Upload is running",
-                }
-            );
+            setStateMessage("Upload is running");
             break;
         }
       },
       (error) => {
-        setState(
-          (prev) =>
-            prev && {
-              ...prev,
-              errorMessage: `${error.message}`,
-            }
-        );
+        setErrorMessage(`${error.message}`);
       },
       () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setState(
-            (prev) =>
-              prev && {
-                ...prev,
-                downloadUrl: downloadURL,
-              }
-          );
+          setDownloadUrl(downloadURL);
         });
       }
     );
   }
 
-  return { uploadFile, getName, getData: state };
+  return {
+    uploadFile,
+    getName,
+    progressMessage,
+    errorMessage,
+    downloadUrl,
+    stateMessage,
+  };
 }

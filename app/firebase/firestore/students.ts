@@ -1,5 +1,7 @@
 import { authInit, db, collectionStudents } from "../initialize";
 import {
+  addDoc,
+  collection,
   doc,
   DocumentData,
   DocumentReference,
@@ -11,7 +13,10 @@ import {
 import { Istudent, IuserDocument } from "@/app/interfaces";
 
 interface IreturnStudentOperations {
-  createNewDoc: (email: string) => Promise<boolean | undefined>;
+  createNewDoc: (
+    email: string,
+    studentData: Istudent
+  ) => Promise<boolean | undefined>;
   updateExistingDoc: (studentData: Istudent) => Promise<boolean | undefined>;
 }
 
@@ -21,15 +26,21 @@ export function studentOperations(): IreturnStudentOperations {
   // will always refer to current auth id
   function currentAuthUserReference(): DocumentReference<DocumentData> | null {
     let { currentUser } = authInit;
+    console.log(currentUser);
     return currentUser ? doc(db, collectionStudents, currentUser.uid) : null;
+    // just for this case -> actual implementation up
   }
 
   // when user registers #authenticates the auth id is captured by
   // currentUserAuthReference and that id is used to createNewDoc for
   // each student in Firestore
   // creates a new document -> id will be the authenticated user's id
-  async function createNewDoc(email: string): Promise<boolean | undefined> {
+  async function createNewDoc(
+    email: string,
+    studentData: Istudent
+  ): Promise<boolean | undefined> {
     let docRef = currentAuthUserReference();
+    console.log(docRef);
     // try not to nest stuffs #don't use else
     if (!docRef) return;
 
@@ -38,20 +49,14 @@ export function studentOperations(): IreturnStudentOperations {
       email: email,
       createdAt: serverTimestamp(),
       lastUpdatedAt: serverTimestamp(),
-      studentData: {
-        fullname: "",
-        dateOfBirth: "",
-        gender: "male",
-        profilePicture: "../../../public/assets/images/avatar.png",
-        level: "bachelor",
-        faculty: "science",
-        courses: "csit",
-      },
+      studentData,
     };
 
     // addDoc and setDoc difference is that: In setDoc,we need to define the id while in addDoc,firebase autogenerates the id
     try {
-      await setDoc(docRef, docData);
+      // here,it actually should be setDoc
+      // await setDoc(docRef, docData);
+      await addDoc(collection(db, collectionStudents), docData);
       return true;
     } catch (error) {
       console.log(error);

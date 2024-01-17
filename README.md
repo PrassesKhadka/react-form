@@ -130,12 +130,6 @@ reducers:{
 
 - [2. RTK docs](https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#implementing-a-queryfn)
 
-## Github Reference
-
-- [Firebase CRUD Example template](https://github.com/umeshmk/rp-react-firebase-crud/tree/main)
-
-- [Firebase chat app example](https://github.com/NaveenDanj/pico)
-
 ## Next.js
 
 - [useRouter](https://nextjs.org/docs/pages/api-reference/functions/ use-router)
@@ -147,3 +141,28 @@ reducers:{
 - To Fetch user data server-side to eliminate a flash of unauthenticated content.
   - [Next.js Authentication pattern docs](https://nextjs.org/docs/pages/building-your-application/routing/authenticating)
   - [Authentication pattern template example with Firebase](https://github.com/vercel/next.js/tree/canary/examples/with-firebase)
+
+## Github and Youtube Reference
+
+- [Firebase CRUD Example template](https://github.com/umeshmk/rp-react-firebase-crud/tree/main)
+
+- [Firebase chat app example](https://github.com/NaveenDanj/pico)
+
+- [Lama Dev Firebase Tutorial](https://www.youtube.com/watch?v=D9W7AFeJ3kk)
+
+## Random
+
+- nullish coalescing operator (??). This operator is used to provide a default value when the left-hand side is null or undefined.
+
+- With the new satisfies operator, you can use type assertion and still let Typescript validate the type of the value that you are asserting.
+
+When you use the as keyword, it implies that you are responsible for the type safety of that line of code; not the TypeScript compiler. - No longer valid if you use it with the satisfies operator.
+
+```
+// file: app.ts
+import { type User, createUsername } from './types.ts';
+
+const user = { isActive: true, id: 'uuid' } satisfies User as User;
+const name = createUsername(user);
+
+```

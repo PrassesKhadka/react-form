@@ -25,7 +25,6 @@ export interface Istudent {
   level: Tlevel;
   faculty: Tfaculty;
   courses: Tcourses;
-  electives?: string[];
 }
 
 // student document created at firestore

@@ -93,45 +93,6 @@ const StudentAcademicForm = ({ control, errors }: IuseMultistepFormProps) => {
           </span>
         </div>
       </label>
-
-      {/* Checkbox Input */}
-      <label>
-        Choose your electives
-        <Controller
-          control={control}
-          name="electives"
-          render={({ field }) => (
-            <div className="form-control">
-              <label className="label cursor-pointer">
-                <span className="label-text">Image Processing</span>
-                <input
-                  {...field}
-                  name="checkbox-1"
-                  value="image processing"
-                  type="checkbox"
-                  className="checkbox"
-                />
-                <span className="label-text">Multimedia</span>
-                <input
-                  {...field}
-                  name="checkbox-2"
-                  value="multimedia"
-                  type="checkbox"
-                  className="checkbox"
-                />
-                <span className="label-text">Society and Ethics in IT</span>
-                <input
-                  {...field}
-                  name="checkbox-3"
-                  value="society and ethics in it"
-                  type="checkbox"
-                  className="checkbox"
-                />
-              </label>
-            </div>
-          )}
-        />
-      </label>
     </FormWrapper>
   );
 };

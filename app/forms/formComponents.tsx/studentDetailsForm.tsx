@@ -4,27 +4,32 @@ import { Controller } from "react-hook-form";
 import FormWrapper from "../formWrapper";
 import { IuseMultistepFormProps } from "..";
 import { useAccessStorage } from "@/app/firebase/storage/useAccessStorage";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
-import { setStudentData } from "@/app/redux/Slices/studentSlice";
 
-const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
-  const [profilePicture, setProfilePicture] = useState<File>(
-    new File([], "public/assets/images/avatar.png")
-  );
-  const { getName, uploadFile, getData } = useAccessStorage(profilePicture);
-  // get redux
-  const currentState = useAppSelector((prev) => prev);
-  const dispatch = useAppDispatch();
+const StudentDetailsForm = ({
+  control,
+  errors,
+  setValue,
+  getValues,
+}: IuseMultistepFormProps) => {
+  const [profilePicture, setProfilePicture] = useState<File>();
+  const { getName, uploadFile, downloadUrl, progressMessage, errorMessage } =
+    useAccessStorage(profilePicture as File);
 
   useEffect(() => {
+    if (!downloadUrl) return;
+    setValue("profilePicture", downloadUrl);
+  }, [downloadUrl]);
+
+  // Function to handle file upload and update profilePicture in React Hook Form data
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] as File;
+    if (!file) return;
+
+    setProfilePicture(file);
+
+    if (!uploadFile) return;
     uploadFile();
-    if (profilePicture) {
-      const { progressMessage, errorMessage, downloadUrl } = getData;
-      dispatch(
-        setStudentData({ ...currentState, profilePicture: downloadUrl })
-      );
-    }
-  }, [profilePicture]);
+  };
 
   return (
     <FormWrapper title="Details Form">
@@ -35,11 +40,6 @@ const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
           control={control}
           rules={{
             required: "This field is required",
-            pattern: {
-              // regex for not a digit
-              value: /^[A-Za-z]+$/,
-              message: "shouldn't contain a number",
-            },
           }}
           render={({ field }) => (
             <label className="form-control w-full max-w-xs">
@@ -133,7 +133,7 @@ const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
         <Controller
           control={control}
           name="profilePicture"
-          // rules={{ required: "This field is required" }}
+          rules={{ required: "This field is required" }}
           render={({ field: { value, onChange, ...field } }) => (
             <label className="form-control w-full max-w-xs">
               <div className="label">
@@ -141,18 +141,22 @@ const StudentDetailsForm = ({ control, errors }: IuseMultistepFormProps) => {
               </div>
               <input
                 type="file"
-                onChange={(e) => {
-                  setProfilePicture((prev) =>
-                    // was showing error so given condition for what should happen when null state occur
-                    e.target.files ? (prev = e.target.files[0]) : (prev = prev)
-                  );
-                }}
+                onChange={handleFileUpload}
                 accept="image/*"
                 className="file-input file-input-bordered w-full max-w-xs"
               />
               <div className="label">
                 <span className="label-text-alt text-red-700">
-                  {errors.profilePicture && errors.profilePicture?.message}
+                  {errors.profilePicture
+                    ? errors.profilePicture?.message
+                    : null}
+                </span>
+              </div>
+
+              <div className="label">
+                <span className="label-text-alt text-blue-700">
+                  {progressMessage && progressMessage}
+                  {errorMessage && errorMessage}
                 </span>
               </div>
             </label>
